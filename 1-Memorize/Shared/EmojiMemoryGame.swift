@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import Combine
 
-class EmojiMemoryGame {
+class EmojiMemoryGame: ObservableObject {
     
     //    private(set) var model: MemoryGame<String> = MemoryGame<String>(numberOfPairsOfCards: 2, cardContentFactory:{ (pairIndex: Int) -> String  in
     //        return "🍙"
     //    })
     //  simplified >>>>
     //    private(set) var model: MemoryGame<String> = MemoryGame<String>(numberOfPairsOfCards: 2){ _ in  "🍙" }
-    
-    private var model: MemoryGame<String> = createMemoryGame()
+        
+    @Published private var model: MemoryGame<String> = createMemoryGame()
     
     //static func = make this a function on the type
     static func createMemoryGame() -> MemoryGame<String> {
@@ -36,6 +37,7 @@ class EmojiMemoryGame {
     //MARK: - Intent(s)
     
     func choose(card: MemoryGame<String>.Card) {
+        objectWillChange.send()
         model.choose(card: card)
     }
 }
