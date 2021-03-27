@@ -23,11 +23,29 @@ struct EmojiArtDocumentView: View {
                 }
             }
             .padding(.horizontal)
-            Rectangle().foregroundColor(.yellow)
-                .edgesIgnoringSafeArea([.horizontal, .bottom])
+            Color.white.overlay(
+                Group {
+                    if self.document.backgroundImage != nil {
+                        Image(uiImage: self.document.backgroundImage!)
+                    }
+                }
+            )
+            .edgesIgnoringSafeArea([.horizontal, .bottom])
+                .onDrop(of: ["public.image"], isTargeted: nil) { providers, location in
+                    return self.drop(providers: providers)
+                    
+                }
         }
     }
     
+    private func drop(providers: [NSItemProvider]) -> Bool {
+        let found = providers.loadFirstObject(ofType: URL.self) { url in
+            print("dropped \(url)")
+            self.document.setBackgroundURL(url)
+        }
+        
+        return found
+    }
 }
 
 // 如果不想所有的 String 都 Identifiable
