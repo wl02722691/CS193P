@@ -5,7 +5,7 @@
 //  Created by 張書涵 on 2021/3/27.
 //
 
-import Foundation
+import SwiftUI
 
 struct EmojiArt {
     var backgroundURL: URL?
@@ -13,8 +13,8 @@ struct EmojiArt {
     
     struct Emoji: Identifiable {
         let text: String
-        var x: Int
-        var y: Int
+        var x: Int // offset from center
+        var y: Int // offset from center
         var size: Int
         var id: Int
         
@@ -35,4 +35,9 @@ struct EmojiArt {
         emojis.append(Emoji(text: text, x: x, y: y, size: size, id: uniqueEmojiId))
     }
     
+}
+
+extension EmojiArt.Emoji {
+    var fontSize: CGFloat { CGFloat(self.size) }
+    var location: CGPoint { CGPoint(x: CGFloat(x), y: CGFloat(y)) }
 }
