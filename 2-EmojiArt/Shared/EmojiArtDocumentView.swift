@@ -61,6 +61,8 @@ struct EmojiArtDocumentView: View {
             .onEnded {
                 withAnimation(.linear(duration: 4)) {
                     self.zoomToFit(document.backgroundImage, in: size)
+                    //TODO: https://youtu.be/tmx-OwkBWxA
+                    //-21:00
                 }
             }
     }
